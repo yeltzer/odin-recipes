@@ -52,6 +52,42 @@ If a rule blocks you, stop and tell the operator what you need.
    redacted screenshot needed for the report, and note it for disclosure.
 6. **Honest reporting.** Never fabricate or exaggerate a finding, severity, or
    reproduction. If you can't reproduce it reliably, say so.
+7. **Identify your traffic.** Many programs require researchers to tag their
+   requests so the program can attribute testing to the operator (attribution,
+   NOT evasion — never do the reverse: never spoof, hide, or disguise the
+   source of traffic). Read the program's rules for its required identifier and
+   attach it to EVERY in-scope request. See "Traffic identification" below for
+   where the values come from. Never hard-code a real token/email into any
+   tracked file — read them from the environment only.
+
+## Traffic identification
+
+Programs specify their own identifier (a custom header, a User-Agent suffix, or
+a per-program token). Load the operator's values from the environment — never
+from a committed file — and apply the program-specific one:
+
+- `BBH_ID_HEADER_NAME`  — e.g. `X-HackerOne-Research` or a program-named header
+- `BBH_ID_HEADER_VALUE` — e.g. the operator's research username or program token
+- `BBH_UA_SUFFIX`       — optional string to append to the User-Agent
+- `BBH_RESEARCHER_EMAIL`— optional contact, if a program asks for it in-band
+
+A convenience loader lives at `.claude/bughunter/identity.local.sh` (gitignored,
+created by the operator; see `identity.local.sh.example`). Source it before
+testing: `source .claude/bughunter/identity.local.sh`.
+
+When a program's rules state a DIFFERENT required header/value, that program's
+rule wins for that target — use what the program specifies. If a confirmed
+in-scope target has required identification and you have no value for it, ask
+the operator before sending active requests.
+
+Attach identification on every request, e.g. with curl:
+
+```
+curl -sS \
+  ${BBH_ID_HEADER_NAME:+-H "$BBH_ID_HEADER_NAME: $BBH_ID_HEADER_VALUE"} \
+  -A "Mozilla/5.0 (research)${BBH_UA_SUFFIX:+ $BBH_UA_SUFFIX}" \
+  "$URL"
+```
 
 ## Workflow
 
