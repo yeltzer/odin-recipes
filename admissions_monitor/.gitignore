@@ -1,0 +1,5 @@
+rumors_state.json
+rumors_state.json.tmp
+seen_ids.txt
+.env
+__pycache__/
