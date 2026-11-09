@@ -108,6 +108,13 @@ Goal: shortlist programs with real money AND accessible attack surface.
   confirm a specific in-scope target.
 
 ### Phase 1 — Passive recon (no touching the target destructively)
+- **Required first step — identification.** Read the chosen program's policy
+  and extract its required traffic-identification method (header name/value, UA
+  tag, or token). Confirm the value to apply for this target (the program's
+  rule wins over your env defaults). You MUST NOT send any active request in
+  Phase 2 until this identifier is determined and wired into your requests; if
+  the program requires one and you cannot obtain the value, stop and ask the
+  operator.
 - Enumerate the authorized attack surface within scope: subdomains, hosts,
   endpoints, parameters, JS files, API routes (REST/GraphQL), tech stack,
   versions, cloud assets. Prefer passive sources (cert transparency, public
