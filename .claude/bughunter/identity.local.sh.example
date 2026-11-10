@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Researcher traffic-identification values for the bug-bounty-hunter agent.
+#
+# HOW TO USE:
+#   1. Copy this file to identity.local.sh (same directory).
+#   2. Fill in YOUR real values below.
+#   3. identity.local.sh is gitignored and will NOT be committed/pushed.
+#   4. Before a session:  source .claude/bughunter/identity.local.sh
+#
+# NOTE: each program may require its own header name/value. These are your
+# defaults; the agent uses a program's specified identifier when its rules
+# state one. This is for ATTRIBUTION of your authorized testing — never for
+# hiding or spoofing traffic.
+
+# Custom identification header the program asks you to send (name then value).
+export BBH_ID_HEADER_NAME="X-HackerOne-Research"   # or the program's header
+export BBH_ID_HEADER_VALUE="your-h1-username"      # or the program-issued token
+
+# Optional: appended to the User-Agent so requests are traceable to you.
+export BBH_UA_SUFFIX="bugbounty:your-h1-username"
+
+# Optional: contact email, only if a program asks for it in-band.
+export BBH_RESEARCHER_EMAIL=""

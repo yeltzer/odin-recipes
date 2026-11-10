@@ -1,0 +1,5 @@
+# Never commit real researcher credentials / identifiers.
+identity.local.sh
+*.local.sh
+*.token
+*.secret
